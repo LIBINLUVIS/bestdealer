@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>best dealer</title>
+
+  <style>
+    #card-shadow{
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    main {
+      min-height: calc(100vh - 56px - 82px);
+    }
+  </style>
+
+</head>
+<body>
+  {% include 'header.html' %}
+  <main>
+    <div class="container">
+      <div class="card text-dark bg-light mb-3 mt-3" style="width: 100%">
+        <div class="card-header" style="color: black">Add your product</div>
+        <div class="card-body" id="card-shadow">
+          <form
+            method="post"
+            action="upload"
+            id="upload-form"
+            enctype="multipart/form-data"
+          >
+          
+          {% csrf_token %}
+        
+            <div class="row">
+             
+              <div class="col-md-4 col-12 pb-3">
+                <label style="color: black">Image:</label>
+                <p style="color: darkred;">*Please provide the size of image below 1Mb</p>
+                <input type="file" name="image" id="img" style="color: black" />
+              </div>
+              <div class="col-md-4 col-12">
+                <label style="color: black">Product Name:</label><br>
+                <input type="text" id="name_txt" name="pro_type" />
+              </div>
+              
+              <div class="col-md-4 col-12 mt-2">
+                <label style="color: black">Product Type:</label><br>
+                <input type="text" id="pro_des" name="pro_des" />
+              </div>
+              <div class="col-md-4 col-12 mt-2">
+                <label style="color: black">Contacts:</label><br>
+                <input type="tel" id="pro_con" name="pro_con" />
+              </div>
+              <div class="col-md-4 col-12 mt-2">
+                <label style="color: black">Location:</label><br>
+                <input type="text" id="pro_Loc" name="pro_Loc" />
+              </div>
+           
+              <div class="col-md-4 col-12 mt-2">
+                <label style="color: black">Price:</label><br>
+                <input type="number" id="pro_price" name="pro_price" />
+              </div>
+             
+            <div id="lat">
+                <input value=""  id="user_lat" type="hidden" name="user_lat"/>
+            </div>
+
+            <div id="log">
+                <input value="" id="user_log" type="hidden" name="user_log"/>
+            </div> 
+
+           
+              <div>
+              <input type="hidden" name="user_id" id="user" value="{{request.user.id}}" />
+              </div>
+              <div class="col-md-12 col-12 pr-3 mt-3">
+                <a  class="btn btn-success m-2" onclick="getLocation()">Get Current Location</a>
+               
+                <button type="submit" id="btn" class="btn btn-outline-success ml-2">
+                  Add
+                </button>
+              </form>
+              </div>
+            </div>
+        </div>
+      </main>
+   
+
+       <script>
+      var x = document.getElementById("lat");
+      var x1 = document.getElementById("log");
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+      
+      function showPosition(position) {
+        x.value = position.coords.latitude ;
+        x1.value=position.coords.longitude;
+        document.getElementById("user_lat").value=x.value;
+        document.getElementById("user_log").value=x1.value;
+      
+      }
+  </script>
+  
+  <script
+src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+crossorigin="anonymous"
+></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.js"></script> 
+
+  
+     <script>
+      $(document).ready(function () {
+        $("#upload-form").validate({
+          rules: {
+            img: {
+              required: true,
+            },
+       
+            pro_type: {
+              required: true,
+            },
+            pro_des: {
+              required: true,
+            },
+            pro_con: {
+              required: true,
+            },
+            pro_Loc: {
+              required: true,
+            },
+            pro_price: {
+              required: true,
+            },
+          },
+        });
+      });
+    </script> 
+  {% include 'fotter.html' %}
+
+</body>
+</html>
+
+
+ 
+  
+     
+
+ 

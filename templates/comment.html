@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <form method="POST" class="comment-form" action=".">
+        {% csrf_token%}
+        <div class="form-group">
+          <label for="exampleFormControlInput1"
+            >Post your Queries here...</label
+          >
+          <input type="hidden" name="user_id" value="{{request.user.id}}" />
+          <input
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+            placeholder="Messages..."
+            name="message"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-2" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
+<div class="card border-light mb-3">
+  <div class="card-header text-center">
+    <strong>Product Queries</strong>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+
+      {% for com in comments%}
+      <strong> {{com.message}}</strong> by {{com.user_id}} at {{com.timestamp}}<br>
+
+
+       <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-12">
+          {% for replay in com.replies.all %}
+
+           - <strong>{{replay.message}}</strong> by {{replay.user_id}} at {{replay.timestamp}}<br>
+
+          {% endfor %}
+          </div>
+        </div>
+       </div>
+    
+    
+ 
+     {% ifequal var_id  user.id%}
+      <div class="container">
+        <div class="form-group row">
+
+          <form method="POST" class="comment-form" action=".">
+            {% csrf_token%}
+            <div class="form-group">
+              <label for="exampleFormControlInput1"
+                >Reply here</label
+              >
+              <input type="hidden" name="com_id" value="{{com.id}}" />
+              <input type="hidden" name="user_id" value="{{request.user.id}}" />
+              <input
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Messages..."
+                name="message"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Reply</button>
+          </form>
+
+        </div>
+      </div>
+      
+
+     {% endifequal %}
+
+      {%endfor%}
+    
+  </div>
+</div>
+</div>
+

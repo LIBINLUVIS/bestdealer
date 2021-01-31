@@ -1,0 +1,165 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>best dealer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}" type="text/css" media="all" />
+   
+  
+    <style>
+      main {
+        min-height: calc(100vh - 56px - 122px);
+      }
+      .not-visible{
+        display: none;
+    }
+    .hide{
+      display: none;
+    }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    <main>
+
+   
+
+    <div class="glass">
+    <div class="profile">
+      
+      <div class="user">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 col-12">
+              
+              <div class="class" id="image-box">
+              {% for i in pics%}
+              {% if user.id == i.user.id %}
+              {% if i.pic %}       
+                <img
+                src="{{request.user.userprofile.pic.url}}"
+                class="card-img-top"
+                alt="..."
+                style="width: 100px; height: 100px"
+                 />
+                
+                
+                {% else %}
+                  <img
+                  src="static/media/pics/profile.webp"
+                  class="card-img-top"
+                  alt="..."
+                 style="width: 100px; height: 100px"
+                  />
+                
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                
+                 <form action="" id="sample"> 
+                  {% csrf_token %}
+                   {{form.as_p}}
+                   
+                  </form>
+
+                  <form action="accountphone" method="POST">
+                    {% csrf_token %}
+                    {{phoneform.as_p}}
+                    <button class="btn btn-success mb-2" type="submit">Save</button>
+                  </form>
+
+                  <div class="container">
+                    <div id="progress-bar" class="not-visible">
+         
+                    </div>
+                  
+                  <div id="cancel-box" class="not-visible">
+                  <button class="btn btn-danger" id="cancel-btn">Cancel</button>
+                  </div>
+                  </div>
+                  <div class="container">
+                  <h3>{{user.first_name}} {{user.last_name}}</h3>
+                  <p>username: {{user.username}}</p>
+                  <p>Email: {{user.email}}</p>
+                  <p>Phone: {{request.user.userphone.phone}}</p>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="container">
+    <div id="alert-box">
+    </div> 
+    </div>
+
+ <!-- product title -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-12 mt-2">
+                    <strong>Your Products</strong><hr>
+                </div>
+            </div>
+        </div>
+<!--   DISPLAYING PRODUCTS -->    
+         <div class="container">
+         <div class="row">
+           <div class="col-md-12 col-12">
+            <div class="pro">
+              {%for val in users%}
+              {% if user.id == val.auther.id %}
+            <div class="card">
+              <img src="./images/assassins.png" alt="" />
+              <div class="card-info">
+                <h2 class="m-2">{{val}}</h2>
+                <p class="m-2">{{val.pro_type}}</p>
+                <p class="m-2">{{val.created}}</p>
+                <div class="btn">
+                  
+                  <a href="{% url 'edit' val.id %}">
+                  <i class="fas fa-edit m-2"></i>
+                  </a>
+                  
+                  <a href="{% url 'remove' val.id  %}">
+                      <i class="fas fa-trash-alt m-3"></i>
+                  </a>
+                                  
+                  <i class="fas fa-thumbs-up"> <span class="badge bg-primary">{{val.likes.count}}</span></i>
+                  <a href="{% url 'messages' val.id %}">
+                    
+                    <i class="fas fa-comments m-3"></i>
+                  </a>
+                 
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+           </div>
+         </div>
+       </div>
+
+    </main>
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+    ></script>
+    {% include 'fotter.html' %}
+
+  
+<script src="https://kit.fontawesome.com/bd2e9379d9.js" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+
+</body>
+</html> 

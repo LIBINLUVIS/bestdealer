@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzouhupoM5qGld-mCO3ttTzlYg_m2SIFdD1A&usqp=CAU" type="image/gif" sizes="50x50">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'css/3-d card.css' %}" type="text/css" media="all" />
+
+    <style>
+      main {
+        min-height: calc(100vh - 56px - 46px);
+      }
+      /*.map-title{
+        display: none;
+      }*/
+      #location-icon{
+        animation: floatAnim 3s ease-in-out infinite;
+       
+      }
+      
+      @keyframes floatAnim {
+        0% {
+          transform: translateY(0);
+        }
+      
+        50% {
+          transform: translateY(-50px);
+        }
+        100% {
+          transform: translateX(-100px);
+        }
+      }
+      
+    </style>
+
+
+    <title>best dealer</title>
+  </head>
+  <body>
+    <!-------------HEADER--------------------------->
+
+    {% include 'header.html' %}
+    <!--------------------------------------------------->
+    <main>
+      <div class="container mt-3">
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="card mb-3" style="max-width: 540px">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="{{var.img.url}}" class="card-img" alt="..." />
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Product description</h5>
+                    
+                    <input id="lat" value="{{var.latitude}}" style="display:none">
+                    <input id="log" value="{{var.logitude}}" style="display: none"><br>
+                    
+                    <strong>Name: {{var.name}}</strong><br />
+                    <strong>product type: {{var.pro_type}}</strong><br />
+                    
+                    <strong>Location: {{var.pro_Loc}}</strong><br />
+                    <strong>Price: {{var.pro_price}}</strong><br />
+                    <h> Product By: {{var.auther}}</h><br />
+                    Posted at:{{var.created}}<br>
+                    <strong>Make a call</strong><br>
+                    <a href="tel:+91{{var.pro_con}}">
+                      <i class="fa fa-2x fa-phone" aria-hidden="true"></i>
+                    </a>
+
+                    <div id="like-section">
+                      {% include 'like-section.html'%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="col-md-6 col-12">
+        <h1>Location Of The Product</h1><hr>
+        {% if var.latitude %}
+        
+        <div id="googleMap"  class="map" style="width:100%;height:400px;"></div><hr>
+        {% else %}
+        <div style="height:400px;width:100% ">
+          <svg width="300" height="500" viewBox="0 0 885 680" fill="none" id="animation" class="map-title" xmlns="http://www.w3.org/2000/svg">
+            <rect width="885" height="680" fill=""/>
+            <g id="undraw_location_tracking_46qb 1" clip-path="url(#clip0)">
+            <g id="backgroung">
+            <path id="Vector" d="M884.596 139.171H368V470.017H884.596V139.171Z" fill="#E6E6E6"/>
+            <path id="Vector_2" d="M836.191 175.809H416.404V433.379H836.191V175.809Z" fill="white"/>
+            <path id="Vector_3" d="M836.191 225.274H416.404V241.089H836.191V225.274Z" fill="#E6E6E6"/>
+            <path id="Vector_4" d="M836.191 302.591H416.404V318.406H836.191V302.591Z" fill="#E6E6E6"/>
+            <path id="Vector_5" d="M652.318 260.418H474.84V276.233H652.318V260.418Z" fill="#E6E6E6"/>
+            <path id="Vector_6" d="M836.191 384.301H416.404V400.116H836.191V384.301Z" fill="#E6E6E6"/>
+            <path id="Vector_7" d="M482.747 175.809H466.933V393.965H482.747V175.809Z" fill="#E6E6E6"/>
+            <path id="Vector_8" d="M777.958 175.809H762.143V311.377H777.958V175.809Z" fill="#E6E6E6"/>
+            <path id="Vector_9" d="M658.468 175.809H642.653V433.379H658.468V175.809Z" fill="#E6E6E6"/>
+            <path id="Vector_10" d="M567.972 305.227H552.157V433.379H567.972V305.227Z" fill="#E6E6E6"/>
+            </g>
+            <g id="location-icon">
+            <path id="Vector_11" d="M650.56 330.706C661.721 330.706 670.768 321.659 670.768 310.498C670.768 299.338 661.721 290.29 650.56 290.29C639.4 290.29 630.353 299.338 630.353 310.498C630.353 321.659 639.4 330.706 650.56 330.706Z" fill="#6C63FF"/>
+            <path id="Vector_12" d="M652.318 0C632.053 2.65216e-06 612.618 8.05005 598.289 22.3792C583.96 36.7084 575.91 56.143 575.91 76.4075C575.91 118.606 652.318 278.342 652.318 278.342C652.318 278.342 728.725 118.606 728.725 76.4075C728.725 56.143 720.675 36.7084 706.346 22.3792C692.017 8.05005 672.582 2.65216e-06 652.318 0V0ZM652.318 112.792C645.121 112.792 638.087 110.658 632.103 106.66C626.12 102.662 621.456 96.9796 618.703 90.3312C615.949 83.6828 615.228 76.3671 616.632 69.3092C618.036 62.2513 621.501 55.7682 626.59 50.6797C631.678 45.5912 638.161 42.126 645.219 40.7221C652.277 39.3181 659.593 40.0387 666.241 42.7925C672.89 45.5464 678.572 50.2099 682.57 56.1933C686.568 62.1767 688.702 69.2113 688.702 76.4075C688.702 86.0573 684.869 95.3118 678.045 102.135C671.222 108.959 661.967 112.792 652.318 112.792V112.792Z" fill="#6C63FF"/>
+            </g>
+            </g>
+            <defs>
+            <clipPath id="clip0">
+            <rect width="884.596" height="679.043" fill="white"/>
+            </clipPath>
+            </defs>
+            </svg>
+        </div>
+        <span style="color:red" class="map-title" id="map_title" >Location is not Provided in google map by the Seller</span>
+        {% endif %}
+      
+        </div>
+        </div>
+      </div>
+      <div id="comment-sec">{% include 'comment.html'%}</div>
+    </main>
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+    ></script>
+    {% include 'fotter.html' %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+   
+    <script>
+      //google map scripts
+      function myMap(){;
+        lat=document.getElementById("lat");
+        log=document.getElementById("log");
+       
+
+          var mapProp= {
+
+         
+           
+            center:new google.maps.LatLng(lat.value,log.value),
+            zoom:5,
+          };
+       
+          var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+      }
+    </script> 
+    <!---API for google map-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBK5ZYfCOR0eTAt3mDzYh6v1YXNtU95WxM&callback=myMap"></script> 
+    
+    <script type="text/javascript">
+      $(document).ready(function (event) {
+        $(document).on("click", "#like-btn", function (event) {
+          event.preventDefault();
+          var pk = $(this).attr("value");
+          console.log(pk);
+
+          $.ajax({
+            type: "post",
+            url: '{% url "like_post" %}',
+            data: { id: pk, csrfmiddlewaretoken: "{{csrf_token}}" },
+            success: function (response) {
+              $("#like-section").html(response["form"]);
+            },
+            error: function (rs, e) {
+              console.log(rs.responseText);
+            },
+          });
+        });
+          $(document).on("submit", ".comment-form", function (event) {
+           event.preventDefault();
+
+          $.ajax({
+            type: "post",
+            url: $(this).attr("action"),
+            data: $(this).serialize(),
+            success: function (response) {
+              $("#comment-sec").html(response["form"]);
+              $("textarea").val("");
+            },
+            error: function (rs, e) {
+            console.log(e);
+            },
+          });
+        });  
+      });
+    </script>
+  </body>
+</html>

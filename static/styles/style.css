@@ -1,0 +1,33 @@
+body{
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(255, 255, 255, 0));
+    background: #ffffff;
+    color: #000000;
+    background-color: violet;
+  }
+  .card-body{
+      background-color: white;
+      
+  }
+  .card-shadow{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2)
+    
+  }
+  
+  .not-visible{
+      display: none;
+  }
+  .card-body1 {
+      /* background-color: white; 
+  */
+      border: 2px solid;
+    }
+    .addbtn {
+      padding-left: 80%;
+    }
+    main {
+      min-height: calc(100vh - 56px - 82px);
+    }
+    .search{
+        color: white;
+    }
+  
