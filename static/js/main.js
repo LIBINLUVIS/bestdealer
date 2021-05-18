@@ -2,11 +2,11 @@ const uploadform=document.getElementById('sample')
 
 const input=document.getElementById('id_pic')
 const progressbars=document.getElementById('progress-bar')
-
 const cancel_btn=document.getElementById('cancel-btn')
 const cancelbox=document.getElementById('cancel-box')
 const alertbox=document.getElementById('alert-box')
 const imagebox=document.getElementById('image-box')
+
 
 
 
